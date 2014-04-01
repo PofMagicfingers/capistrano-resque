@@ -69,7 +69,7 @@ namespace :resque do
         within current_path do
           pids = capture(:ls, "-1 tmp/pids/resque_work*.pid")
           pids.each_line do |pid_file|
-            execute :kill, "-s #{fetch(:resque_kill_signal)} $(cat #{pid_file.chomp}) && rm #{pid_file.chomp}"
+            execute :kill, "-s #{fetch(:resque_kill_signal)} $(cat #{pid_file.chomp}) > /dev/null 2>&1 && rm #{pid_file.chomp}  > /dev/null 2>&1"
           end
         end
       end
